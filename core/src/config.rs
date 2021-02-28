@@ -59,30 +59,43 @@ impl FromStr for DeviceType {
     }
 }
 
+impl From<&DeviceType> for &str {
+    fn from(d: &DeviceType) -> &'static str {
+        use self::DeviceType::*;
+        match d {
+            Unknown => "Unknown",
+            Computer => "Computer",
+            Tablet => "Tablet",
+            Smartphone => "Smartphone",
+            Speaker => "Speaker",
+            TV => "TV",
+            AVR => "AVR",
+            STB => "STB",
+            AudioDongle => "AudioDongle",
+            GameConsole => "GameConsole",
+            CastAudio => "CastAudio",
+            CastVideo => "CastVideo",
+            Automobile => "Automobile",
+            Smartwatch => "Smartwatch",
+            Chromebook => "Chromebook",
+            UnknownSpotify => "UnknownSpotify",
+            CarThing => "CarThing",
+            Observer => "Observer",
+            HomeThing => "HomeThing",
+        }
+    }
+}
+
+impl From<DeviceType> for &str {
+    fn from(d: DeviceType) -> &'static str {
+        (&d).into()
+    }
+}
+
 impl fmt::Display for DeviceType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        use self::DeviceType::*;
-        match *self {
-            Unknown => f.write_str("Unknown"),
-            Computer => f.write_str("Computer"),
-            Tablet => f.write_str("Tablet"),
-            Smartphone => f.write_str("Smartphone"),
-            Speaker => f.write_str("Speaker"),
-            TV => f.write_str("TV"),
-            AVR => f.write_str("AVR"),
-            STB => f.write_str("STB"),
-            AudioDongle => f.write_str("AudioDongle"),
-            GameConsole => f.write_str("GameConsole"),
-            CastAudio => f.write_str("CastAudio"),
-            CastVideo => f.write_str("CastVideo"),
-            Automobile => f.write_str("Automobile"),
-            Smartwatch => f.write_str("Smartwatch"),
-            Chromebook => f.write_str("Chromebook"),
-            UnknownSpotify => f.write_str("UnknownSpotify"),
-            CarThing => f.write_str("CarThing"),
-            Observer => f.write_str("Observer"),
-            HomeThing => f.write_str("HomeThing"),
-        }
+        let str: &str = self.into();
+        f.write_str(str)
     }
 }
 
